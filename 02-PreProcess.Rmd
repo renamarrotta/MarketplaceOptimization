@@ -1,0 +1,116 @@
+# Data Pre-Processing
+
+Libraries
+
+```{r}
+library(readxl)
+library(dplyr)
+library(tidyr)
+```
+
+Load in sheets of the excel file
+
+```{r}
+
+file_path <- "/Users/renamarrotta/Documents/IAA/Analytics Business Case Data (1).xlsx"
+
+sheets = c("sessions", "marketing_details", "leads", "product_details", "matches")
+
+for (i in 1:length(sheets)) {
+  sheet_name <- sheets[i]
+  df <- read_excel(file_path, sheet = sheet_name)
+  assign(sheet_name, df)
+}
+rm(df)
+```
+
+#Marketing & Conversion
+
+##Evaluating Marketing Channel Value
+
+Based on my understanding, each session should be associated with clicks. To check my understanding, I will analyze how many matching sessions ids and click session ids there are. The purpose of this is so I can match each session and its associated marketing strategy with a lead to understand which marketing strategies have the most leads associated.
+
+```{r}
+matching_rows_leads <- leads[leads$CLICK_SESSION_ID %in% sessions$SESSION_ID, ] 
+length(unique(matching_rows_leads$CLICK_SESSION_ID)) #16185 unique ids
+#there are 19307 matching ids which equals the # of observations in leads 
+#this makes sense so out of the 113854 sessions, 19307 turned into leads
+
+matching_rows_ses <- sessions[sessions$SESSION_ID %in% leads$CLICK_SESSION_ID, ]
+#16296 obs
+#There are some ids in sessions that do not have a matching click_session_id
+```
+
+Of these matching IDs, I want to see how many repeat in leads and if there are any repeating ids in sessions. I except there will be repeating click_session_ids because for every session it makes sense to have multiple clicks. I do not expect any repeating session_ids.
+
+```{r}
+click_session_id_counts <- table(matching_rows_leads$CLICK_SESSION_ID) #count occurances for each ID
+repeating_click_session_ids <- names(click_session_id_counts)[click_session_id_counts > 1] #2587 repeat - click sessions repeat
+
+session_id_counts <- table(sessions$SESSION_ID)
+repeating_session_ids <- names(session_id_counts)[session_id_counts > 1] #146 repeat - session ids
+repeating_sessions_df <- sessions %>%
+                          filter(SESSION_ID %in% repeating_session_ids)
+
+sessions_clean <- sessions %>%
+  filter(!(SESSION_ID %in% repeating_session_ids))
+sessions_clean_counts <- table(sessions_clean$SESSION_ID)
+sessions_clean_ids <- names(sessions_clean_counts)[sessions_clean_counts > 1] #empty - dropped the 146 repeating ids
+```
+
+```{r}
+#clear environemnt 
+rm(click_session_id_counts, repeating_click_session_ids, session_id_counts, repeating_session_ids, matching_rows_leads)
+rm(sessions_clean_counts, sessions_clean_ids, sheet_name)
+```
+
+To ensure I can have a 1:many join, I dropped the 146 repeating ids. These 146 observations are some sessions that were exposed to two marketing strategies; these will have to be analyzed differently than those that follow the expected pattern of 1 session_id to many click_session_ids
+
+```{r}
+any(is.na(sessions_clean$marketing_ID))
+any(is.na(sessions_clean$SESSION_ID))
+
+leads_sessions_join <- inner_join(leads, sessions_clean, by = c("CLICK_SESSION_ID" = "SESSION_ID"))
+#19085 obs with 4 vars
+any(is.na(leads_sessions_join$marketing_ID))
+```
+
+I now want to know which marketing strategy and product is associated with each session and lead.
+
+```{r}
+any(is.na(marketing_details$CHANNEL))
+any(is.na(leads_sessions_join))
+
+marketing_leads <- left_join(leads_sessions_join, marketing_details, by = "marketing_ID")
+
+any(is.na(marketing_leads$CHANNEL))
+```
+
+To understand how much value each marketing channel brings, I have to join the marketing_leads with matches. However, matches has 58602 rows which may indicate the lead_id repeats in this table.
+
+```{r}
+lead_id_count <- table(matches$LEAD_ID) #count occurances for each ID
+repeating_lead_ids <- names(lead_id_count)[lead_id_count > 1] 
+length(repeating_lead_ids) #13,236 repeating id's 
+
+matching_rows <- marketing_leads[marketing_leads$LEAD_ID %in% matches$LEAD_ID, ] 
+repeating_match <- matching_rows$LEAD_ID %in% repeating_lead_ids #are the leads that repeat in the table I want to join?
+sum(repeating_match)
+
+ref_id_count <- table(matches$REFERRAL_ID) 
+repeating_ref_ids <- names(ref_id_count)[ref_id_count > 1] 
+length(repeating_ref_ids) #0 repeating id's 
+
+```
+
+It looks like one lead can be associated with multiple matches and every referral is unique. A single lead can be associated with multiple referrals. I have a 1:many relationship with lead_id when joining marketing_leads and matches.
+
+```{r}
+matching_rows_leads <- matches[matches$LEAD_ID %in% marketing_leads$LEAD_ID, ] 
+#58102 matches which means about 500 LEAD_IDs in matches do not have a corresponding marketing_leads LEAD_ID
+
+marketing_matches <- inner_join(matches, marketing_leads, by = "LEAD_ID")
+any(is.na(marketing_matches$CHANNEL))
+#58102 rows 
+```
+

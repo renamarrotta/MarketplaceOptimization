@@ -1,0 +1,147 @@
+
+# Marketing Channel Analysis
+
+To understand what are the most profitable strategies, I calculate total revenue by marketing channel.
+
+```{r}
+marketing_matches %>%
+  group_by(CHANNEL) %>%
+  summarise(Revenue = sum(REVENUE)) %>%
+  arrange(desc(Revenue))
+```
+
+```{r}
+marketing_matches %>%
+  group_by(SUB_CHANNEL) %>%
+  summarise(Revenue = sum(REVENUE)) %>%
+  arrange( desc(Revenue))
+```
+
+Total revenue informs the overall revenue contribution of each channel. I also calculate revenue per session to account for variations in session volume per market channel. This metric is more informative when evaluating which channel is more effective at converting customer interactions to a revenue calculation since it is standardized.
+
+```{r}
+marketing_matches %>%
+  group_by(CHANNEL) %>%
+  summarise(Revenue_PerSession = sum(REVENUE)/n_distinct(CLICK_SESSION_ID)) %>% # number of sessions per channel
+  arrange(desc(Revenue_PerSession))
+```
+
+```{r}
+marketing_matches %>%
+  group_by(SUB_CHANNEL) %>%
+  summarise(Revenue_PerSession = sum(REVENUE)/n_distinct(CLICK_SESSION_ID)) %>% # number of sessions per channel
+  arrange(desc(Revenue_PerSession))
+```
+
+See which each channel is made up of by sub-channel
+
+```{r}
+
+market_prod_matches <- inner_join(marketing_matches, product_details, by = "PRODUCT_ID") #full data set with all leads, revenue, products, and marketing
+
+channel_subchannel_counts <- market_prod_matches %>%
+  group_by(CHANNEL, SUB_CHANNEL) %>%
+  summarise(Product_Count = n()) %>%
+  ungroup()
+
+# Calculate the total occurrences of each subchannel within each channel
+total_subchannel_counts <- channel_subchannel_counts %>%
+  group_by(CHANNEL) %>%
+  summarise(Total_Subchannel_Count = sum(Product_Count))
+
+# Calculate proportions
+channel_subchannel_counts %>%
+  left_join(total_subchannel_counts, by = "CHANNEL") %>%
+  mutate(Proportion = Product_Count / Total_Subchannel_Count)%>%
+  arrange(CHANNEL, desc(Proportion))
+```
+
+Analyze the proportion of each marketing channel in all sessions
+
+```{r}
+sessions_clean_marketing <- inner_join(sessions, marketing_details, by = "marketing_ID")
+
+options(scipen = 999)
+total_sessions <- nrow(sessions_clean_marketing)
+
+sessions_clean_marketing %>%
+  group_by(CHANNEL) %>%
+  summarise(rows_by_channel = n()) %>%
+  mutate(Proportion = rows_by_channel / total_sessions)%>%
+  arrange(desc(Proportion))
+
+```
+
+To further explore which marketing channels are better at converting sessions to leads I want to calculate the conversion rate per marketing channel.
+
+I first filter for only sessions that do not have a lead_id associated with it and count the total number of occurences for each marketing channel.
+
+```{r}
+
+lead_ids <- unique(marketing_matches$CLICK_SESSION_ID) #16079
+
+no_leads <- sessions_clean %>%
+  filter(!(SESSION_ID %in% lead_ids)) #97478 sessions that did not turn into leads
+
+#join on marketing id to get marketing information for sessions that did not turn into leads
+no_leads <- inner_join(no_leads, marketing_details, by = "marketing_ID")
+
+```
+
+```{r}
+nonconverted_counts <- no_leads %>%
+  group_by(CHANNEL) %>%
+  summarise(n_marketing_nonc = n()) %>%
+  arrange(desc(n_marketing_nonc))
+nonconverted_counts
+```
+
+Then I filter for sessions that have an associated lead_id indicating the session successfully converted into a lead and count the total number of occurences for each marketing channel.
+
+```{r}
+yes_leads <- sessions_clean %>%
+  filter(SESSION_ID %in% lead_ids) #16079 sessions that converted to leads
+
+yes_leads <- inner_join(yes_leads, marketing_details, by = "marketing_ID")
+
+```
+
+```{r}
+converted_counts <- yes_leads %>%
+  group_by(CHANNEL) %>%
+  summarise(n_marketing_c = n()) %>%
+  arrange(desc(n_marketing_c))
+converted_counts
+```
+
+Using these calculations, I can now calculate a conversion rate for each marketing channel.
+
+```{r}
+full_join(converted_counts, nonconverted_counts, by = "CHANNEL") %>%
+  mutate(conversion_rate = n_marketing_c / (n_marketing_c + n_marketing_nonc)) %>% #converted count / total count
+  arrange(desc(conversion_rate))  # Sort by conversion rate
+```
+
+Comparing % of channels in converted sessions and non converted sessions
+
+```{r}
+options(scipen = 999)
+total_sessions <- nrow(yes_leads)
+
+yes_leads %>%
+  group_by(CHANNEL) %>%
+  summarise(rows_by_channel = n()) %>%
+  mutate(Proportion_of_YesLeads = rows_by_channel / total_sessions)%>%
+  arrange(desc(Proportion_of_YesLeads))
+```
+
+```{r}
+options(scipen = 999)
+total_sessions <- nrow(no_leads)
+
+no_leads %>%
+  group_by(CHANNEL) %>%
+  summarise(rows_by_channel = n()) %>%
+  mutate(Proportion_of_NoLeads = rows_by_channel / total_sessions)%>%
+  arrange(desc(Proportion_of_NoLeads))
+```

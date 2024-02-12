@@ -1,9 +1,55 @@
---- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+---
+title: "LendingTree Business Case: Marketplace Optimization"
+author: "Rena Marrotta"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
-# Down the rabbit-hole
+# Executive Summary
 
+## **Marketing**
+
+### **Leverage High-Performing Channels and Reducing Reliance on Lower-Yield Ones**
+
+-   Focus future marketing investments in social media and brand marketing to increase overall leads and revenue.
+
+-   Increase visibility, engagement, and relevance of the display and offline channels to leverage their revenue potential.
+
+-   Integrate digital touchpoints into the offline marketing channel.
+
+#### **Key Findings**
+
+Underutilization of marketing channels with high revenue and/or high conversion rates:
+
+-   The social channel is the highest-performing channel, both by revenue and by conversion rate, but it makes up only 1% of the overall marketing portfolio.
+
+    -   Social has an average revenue of \$87.69 per session and a conversation rate of 38%.
+
+-   The display channel generates an average revenue of \$50.36 but makes only 7% of the overall portfolio and has the second-lowest conversion rate at 12%.\
+    Brand marketing has the second-highest conversion rate at 27% but only makes up 2% of the overall marketing portfolio.
+    Overutilization of marketing channels with lower conversion rates and medium-to-low revenue averages.
+
+-   Partner marketing makes up 27% of the marketing portfolio but has the third-lowest revenue per session at \$26.17 and a relatively low conversion rate of 12%.
+
+-   The offline channel generates an average revenue of \$41.25 and makes up 19% of the overall marketing portfolio by session but has the lowest conversion rate at 2%.
+
+## **Product Monetization**
+
+### **Diversifying Product Portfolio Composition with Focus on Business Loans and Home Equity**
+
+-   Invest in display channel marketing to target home equity and mortgage loan customers
+
+-   Enhance strategies to identify potential business loan, home equity, and mortgage loan customers
+
+### **Key Findings:**
+
+-   Opportunity to diversify product composition, particularly focusing on business loans and home equity, as a strategy to drive revenue growth:
+
+-   Personal loans make up 66% of the total products by referrals but are the second-lowest average revenue generator at \$12.41 per lead.
+
+-   Business loans generate the highest average revenue at \$198.35 but only makeup 2% of the product portfolio.
+
+-   Home equity products generate the second-highest average revenue at \$80.72 but only makeup 9% of the product portfolio.

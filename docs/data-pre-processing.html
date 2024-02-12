@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Data Pre-Processing | LendingTree Business Case: Marketplace Optimization</title>
+  <meta name="description" content="2 Data Pre-Processing | LendingTree Business Case: Marketplace Optimization" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Data Pre-Processing | LendingTree Business Case: Marketplace Optimization" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Data Pre-Processing | LendingTree Business Case: Marketplace Optimization" />
+  
+  
+  
+
+<meta name="author" content="Rena Marrotta" />
+
+
+<meta name="date" content="2024-02-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="marketing-channel-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Marketplace Optimization</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Executive Summary</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#marketing"><i class="fa fa-check"></i><b>1.1</b> <strong>Marketing</strong></a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#leverage-high-performing-channels-and-reducing-reliance-on-lower-yield-ones"><i class="fa fa-check"></i><b>1.1.1</b> <strong>Leverage High-Performing Channels and Reducing Reliance on Lower-Yield Ones</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#product-monetization"><i class="fa fa-check"></i><b>1.2</b> <strong>Product Monetization</strong></a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#diversifying-product-portfolio-composition-with-focus-on-business-loans-and-home-equity"><i class="fa fa-check"></i><b>1.2.1</b> <strong>Diversifying Product Portfolio Composition with Focus on Business Loans and Home Equity</strong></a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#key-findings-1"><i class="fa fa-check"></i><b>1.2.2</b> <strong>Key Findings:</strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-pre-processing.html"><a href="data-pre-processing.html"><i class="fa fa-check"></i><b>2</b> Data Pre-Processing</a></li>
+<li class="chapter" data-level="3" data-path="marketing-channel-analysis.html"><a href="marketing-channel-analysis.html"><i class="fa fa-check"></i><b>3</b> Marketing Channel Analysis</a></li>
+<li class="chapter" data-level="4" data-path="enhancing-lead-monetization.html"><a href="enhancing-lead-monetization.html"><i class="fa fa-check"></i><b>4</b> Enhancing Lead Monetization</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">LendingTree Business Case: Marketplace Optimization</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-pre-processing" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Data Pre-Processing<a href="data-pre-processing.html#data-pre-processing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Libraries</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-pre-processing.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="data-pre-processing.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="data-pre-processing.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
+<p>Load in sheets of the excel file</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-pre-processing.html#cb2-1" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">&quot;/Users/renamarrotta/Documents/IAA/Analytics Business Case Data (1).xlsx&quot;</span></span>
+<span id="cb2-2"><a href="data-pre-processing.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="data-pre-processing.html#cb2-3" tabindex="-1"></a>sheets <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;sessions&quot;</span>, <span class="st">&quot;marketing_details&quot;</span>, <span class="st">&quot;leads&quot;</span>, <span class="st">&quot;product_details&quot;</span>, <span class="st">&quot;matches&quot;</span>)</span>
+<span id="cb2-4"><a href="data-pre-processing.html#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="data-pre-processing.html#cb2-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheets)) {</span>
+<span id="cb2-6"><a href="data-pre-processing.html#cb2-6" tabindex="-1"></a>  sheet_name <span class="ot">&lt;-</span> sheets[i]</span>
+<span id="cb2-7"><a href="data-pre-processing.html#cb2-7" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path, <span class="at">sheet =</span> sheet_name)</span>
+<span id="cb2-8"><a href="data-pre-processing.html#cb2-8" tabindex="-1"></a>  <span class="fu">assign</span>(sheet_name, df)</span>
+<span id="cb2-9"><a href="data-pre-processing.html#cb2-9" tabindex="-1"></a>}</span>
+<span id="cb2-10"><a href="data-pre-processing.html#cb2-10" tabindex="-1"></a><span class="fu">rm</span>(df)</span></code></pre></div>
+<p>#Marketing &amp; Conversion</p>
+<p>##Evaluating Marketing Channel Value</p>
+<p>Based on my understanding, each session should be associated with clicks. To check my understanding, I will analyze how many matching sessions ids and click session ids there are. The purpose of this is so I can match each session and its associated marketing strategy with a lead to understand which marketing strategies have the most leads associated.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-pre-processing.html#cb3-1" tabindex="-1"></a>matching_rows_leads <span class="ot">&lt;-</span> leads[leads<span class="sc">$</span>CLICK_SESSION_ID <span class="sc">%in%</span> sessions<span class="sc">$</span>SESSION_ID, ] </span>
+<span id="cb3-2"><a href="data-pre-processing.html#cb3-2" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(matching_rows_leads<span class="sc">$</span>CLICK_SESSION_ID)) <span class="co">#16185 unique ids</span></span></code></pre></div>
+<pre><code>## [1] 16185</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-pre-processing.html#cb5-1" tabindex="-1"></a><span class="co">#there are 19307 matching ids which equals the # of observations in leads </span></span>
+<span id="cb5-2"><a href="data-pre-processing.html#cb5-2" tabindex="-1"></a><span class="co">#this makes sense so out of the 113854 sessions, 19307 turned into leads</span></span>
+<span id="cb5-3"><a href="data-pre-processing.html#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="data-pre-processing.html#cb5-4" tabindex="-1"></a>matching_rows_ses <span class="ot">&lt;-</span> sessions[sessions<span class="sc">$</span>SESSION_ID <span class="sc">%in%</span> leads<span class="sc">$</span>CLICK_SESSION_ID, ]</span>
+<span id="cb5-5"><a href="data-pre-processing.html#cb5-5" tabindex="-1"></a><span class="co">#16296 obs</span></span>
+<span id="cb5-6"><a href="data-pre-processing.html#cb5-6" tabindex="-1"></a><span class="co">#There are some ids in sessions that do not have a matching click_session_id</span></span></code></pre></div>
+<p>Of these matching IDs, I want to see how many repeat in leads and if there are any repeating ids in sessions. I except there will be repeating click_session_ids because for every session it makes sense to have multiple clicks. I do not expect any repeating session_ids.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-pre-processing.html#cb6-1" tabindex="-1"></a>click_session_id_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(matching_rows_leads<span class="sc">$</span>CLICK_SESSION_ID) <span class="co">#count occurances for each ID</span></span>
+<span id="cb6-2"><a href="data-pre-processing.html#cb6-2" tabindex="-1"></a>repeating_click_session_ids <span class="ot">&lt;-</span> <span class="fu">names</span>(click_session_id_counts)[click_session_id_counts <span class="sc">&gt;</span> <span class="dv">1</span>] <span class="co">#2587 repeat - click sessions repeat</span></span>
+<span id="cb6-3"><a href="data-pre-processing.html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="data-pre-processing.html#cb6-4" tabindex="-1"></a>session_id_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(sessions<span class="sc">$</span>SESSION_ID)</span>
+<span id="cb6-5"><a href="data-pre-processing.html#cb6-5" tabindex="-1"></a>repeating_session_ids <span class="ot">&lt;-</span> <span class="fu">names</span>(session_id_counts)[session_id_counts <span class="sc">&gt;</span> <span class="dv">1</span>] <span class="co">#146 repeat - session ids</span></span>
+<span id="cb6-6"><a href="data-pre-processing.html#cb6-6" tabindex="-1"></a>repeating_sessions_df <span class="ot">&lt;-</span> sessions <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="data-pre-processing.html#cb6-7" tabindex="-1"></a>                          <span class="fu">filter</span>(SESSION_ID <span class="sc">%in%</span> repeating_session_ids)</span>
+<span id="cb6-8"><a href="data-pre-processing.html#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="data-pre-processing.html#cb6-9" tabindex="-1"></a>sessions_clean <span class="ot">&lt;-</span> sessions <span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="data-pre-processing.html#cb6-10" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(SESSION_ID <span class="sc">%in%</span> repeating_session_ids))</span>
+<span id="cb6-11"><a href="data-pre-processing.html#cb6-11" tabindex="-1"></a>sessions_clean_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(sessions_clean<span class="sc">$</span>SESSION_ID)</span>
+<span id="cb6-12"><a href="data-pre-processing.html#cb6-12" tabindex="-1"></a>sessions_clean_ids <span class="ot">&lt;-</span> <span class="fu">names</span>(sessions_clean_counts)[sessions_clean_counts <span class="sc">&gt;</span> <span class="dv">1</span>] <span class="co">#empty - dropped the 146 repeating ids</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-pre-processing.html#cb7-1" tabindex="-1"></a><span class="co">#clear environemnt </span></span>
+<span id="cb7-2"><a href="data-pre-processing.html#cb7-2" tabindex="-1"></a><span class="fu">rm</span>(click_session_id_counts, repeating_click_session_ids, session_id_counts, repeating_session_ids, matching_rows_leads)</span>
+<span id="cb7-3"><a href="data-pre-processing.html#cb7-3" tabindex="-1"></a><span class="fu">rm</span>(sessions_clean_counts, sessions_clean_ids, sheet_name)</span></code></pre></div>
+<p>To ensure I can have a 1:many join, I dropped the 146 repeating ids. These 146 observations are some sessions that were exposed to two marketing strategies; these will have to be analyzed differently than those that follow the expected pattern of 1 session_id to many click_session_ids</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-pre-processing.html#cb8-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(sessions_clean<span class="sc">$</span>marketing_ID))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-pre-processing.html#cb10-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(sessions_clean<span class="sc">$</span>SESSION_ID))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data-pre-processing.html#cb12-1" tabindex="-1"></a>leads_sessions_join <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(leads, sessions_clean, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;CLICK_SESSION_ID&quot;</span> <span class="ot">=</span> <span class="st">&quot;SESSION_ID&quot;</span>))</span>
+<span id="cb12-2"><a href="data-pre-processing.html#cb12-2" tabindex="-1"></a><span class="co">#19085 obs with 4 vars</span></span>
+<span id="cb12-3"><a href="data-pre-processing.html#cb12-3" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(leads_sessions_join<span class="sc">$</span>marketing_ID))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>I now want to know which marketing strategy and product is associated with each session and lead.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="data-pre-processing.html#cb14-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(marketing_details<span class="sc">$</span>CHANNEL))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-pre-processing.html#cb16-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(leads_sessions_join))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="data-pre-processing.html#cb18-1" tabindex="-1"></a>marketing_leads <span class="ot">&lt;-</span> <span class="fu">left_join</span>(leads_sessions_join, marketing_details, <span class="at">by =</span> <span class="st">&quot;marketing_ID&quot;</span>)</span>
+<span id="cb18-2"><a href="data-pre-processing.html#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="data-pre-processing.html#cb18-3" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(marketing_leads<span class="sc">$</span>CHANNEL))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>To understand how much value each marketing channel brings, I have to join the marketing_leads with matches. However, matches has 58602 rows which may indicate the lead_id repeats in this table.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="data-pre-processing.html#cb20-1" tabindex="-1"></a>lead_id_count <span class="ot">&lt;-</span> <span class="fu">table</span>(matches<span class="sc">$</span>LEAD_ID) <span class="co">#count occurances for each ID</span></span>
+<span id="cb20-2"><a href="data-pre-processing.html#cb20-2" tabindex="-1"></a>repeating_lead_ids <span class="ot">&lt;-</span> <span class="fu">names</span>(lead_id_count)[lead_id_count <span class="sc">&gt;</span> <span class="dv">1</span>] </span>
+<span id="cb20-3"><a href="data-pre-processing.html#cb20-3" tabindex="-1"></a><span class="fu">length</span>(repeating_lead_ids) <span class="co">#13,236 repeating id&#39;s </span></span></code></pre></div>
+<pre><code>## [1] 13236</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="data-pre-processing.html#cb22-1" tabindex="-1"></a>matching_rows <span class="ot">&lt;-</span> marketing_leads[marketing_leads<span class="sc">$</span>LEAD_ID <span class="sc">%in%</span> matches<span class="sc">$</span>LEAD_ID, ] </span>
+<span id="cb22-2"><a href="data-pre-processing.html#cb22-2" tabindex="-1"></a>repeating_match <span class="ot">&lt;-</span> matching_rows<span class="sc">$</span>LEAD_ID <span class="sc">%in%</span> repeating_lead_ids <span class="co">#are the leads that repeat in the table I want to join?</span></span>
+<span id="cb22-3"><a href="data-pre-processing.html#cb22-3" tabindex="-1"></a><span class="fu">sum</span>(repeating_match)</span></code></pre></div>
+<pre><code>## [1] 13126</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="data-pre-processing.html#cb24-1" tabindex="-1"></a>ref_id_count <span class="ot">&lt;-</span> <span class="fu">table</span>(matches<span class="sc">$</span>REFERRAL_ID) </span>
+<span id="cb24-2"><a href="data-pre-processing.html#cb24-2" tabindex="-1"></a>repeating_ref_ids <span class="ot">&lt;-</span> <span class="fu">names</span>(ref_id_count)[ref_id_count <span class="sc">&gt;</span> <span class="dv">1</span>] </span>
+<span id="cb24-3"><a href="data-pre-processing.html#cb24-3" tabindex="-1"></a><span class="fu">length</span>(repeating_ref_ids) <span class="co">#0 repeating id&#39;s </span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>It looks like one lead can be associated with multiple matches and every referral is unique. A single lead can be associated with multiple referrals. I have a 1:many relationship with lead_id when joining marketing_leads and matches.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="data-pre-processing.html#cb26-1" tabindex="-1"></a>matching_rows_leads <span class="ot">&lt;-</span> matches[matches<span class="sc">$</span>LEAD_ID <span class="sc">%in%</span> marketing_leads<span class="sc">$</span>LEAD_ID, ] </span>
+<span id="cb26-2"><a href="data-pre-processing.html#cb26-2" tabindex="-1"></a><span class="co">#58102 matches which means about 500 LEAD_IDs in matches do not have a corresponding marketing_leads LEAD_ID</span></span>
+<span id="cb26-3"><a href="data-pre-processing.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="data-pre-processing.html#cb26-4" tabindex="-1"></a>marketing_matches <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(matches, marketing_leads, <span class="at">by =</span> <span class="st">&quot;LEAD_ID&quot;</span>)</span>
+<span id="cb26-5"><a href="data-pre-processing.html#cb26-5" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(marketing_matches<span class="sc">$</span>CHANNEL))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="data-pre-processing.html#cb28-1" tabindex="-1"></a><span class="co">#58102 rows </span></span></code></pre></div>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="marketing-channel-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/renamarrotta/MarketplaceOptimization/edit/main/02-PreProcess.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/renamarrotta/MarketplaceOptimization/blob/main/02-PreProcess.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

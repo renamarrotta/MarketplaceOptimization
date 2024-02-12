@@ -1,0 +1,69 @@
+
+# Enhancing Lead Monetization
+
+Total revenue by product
+
+```{r}
+market_prod_matches %>%
+  group_by(CATEGORY_NAME) %>%
+  summarise(Revenue = sum(REVENUE)) %>%
+  arrange(desc(Revenue))
+```
+
+Revenue per lead by product shows which products are monetized the most and least effectively.
+
+```{r}
+market_prod_matches %>%
+  group_by(CATEGORY_NAME) %>%
+  summarise(Revenue_PerLead = sum(REVENUE)/n_distinct(LEAD_ID)) %>% # number of sessions per channel
+  arrange(desc(Revenue_PerLead))
+```
+
+#Areas for Improvement
+
+Now that I have identified which products generate the most revenue, I will explore the make up of products for all leads.
+
+```{r}
+total_refs <- nrow(market_prod_matches)
+
+market_prod_matches %>%
+  group_by(CATEGORY_NAME) %>%
+  summarise(rows_by_cat = n()) %>%
+  mutate(Proportion_of_Total_Refs = rows_by_cat / total_refs)
+
+```
+
+Proportion of products within each marketing channel. Distribution of products within each channel.
+
+```{r}
+total_rows_per_channel <- market_prod_matches %>%
+  group_by(CHANNEL) %>%
+  summarise(Total_Rows = n())
+
+# Calculate the product count for each category within each channel
+table <- market_prod_matches %>%
+  group_by(CHANNEL, CATEGORY_NAME) %>%
+  summarise(Product_Count = n()) %>%
+  ungroup() %>%
+  left_join(total_rows_per_channel, by = "CHANNEL") %>%
+  mutate(Proportion = Product_Count / Total_Rows) %>%
+  arrange(CHANNEL, desc(Product_Count))
+table
+
+```
+
+Proportion of products stratified by the associated marketing channel. Distribution of product counts within each category.
+
+```{r}
+total_rows_per_cat <- market_prod_matches %>%
+  group_by(CATEGORY_NAME) %>%
+  summarise(Total_Rows = n())
+
+market_prod_matches %>%
+  group_by(CATEGORY_NAME, CHANNEL) %>%
+  summarise(Product_Count = n()) %>%
+  ungroup() %>%
+  left_join(total_rows_per_cat, by = "CATEGORY_NAME") %>%
+  mutate(Proportion = Product_Count / Total_Rows) %>%
+  arrange(CATEGORY_NAME, desc(Product_Count))
+```
