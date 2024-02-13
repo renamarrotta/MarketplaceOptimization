@@ -1,6 +1,6 @@
 # Data Pre-Processing
 
-Libraries
+
 
 ```{r}
 library(readxl)
@@ -8,7 +8,6 @@ library(dplyr)
 library(tidyr)
 ```
 
-Load in sheets of the excel file
 
 ```{r}
 
@@ -24,9 +23,7 @@ for (i in 1:length(sheets)) {
 rm(df)
 ```
 
-#Marketing & Conversion
-
-##Evaluating Marketing Channel Value
+Marketing & Conversion: Evaluating Marketing Channel Value
 
 Based on my understanding, each session should be associated with clicks. To check my understanding, I will analyze how many matching sessions ids and click session ids there are. The purpose of this is so I can match each session and its associated marketing strategy with a lead to understand which marketing strategies have the most leads associated.
 

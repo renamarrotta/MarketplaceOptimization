@@ -23,7 +23,7 @@
 <meta name="author" content="Rena Marrotta" />
 
 
-<meta name="date" content="2024-02-12" />
+<meta name="date" content="2024-02-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -260,22 +260,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb39-9"><a href="marketing-channel-analysis.html#cb39-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> Product_Count <span class="sc">/</span> Total_Subchannel_Count)<span class="sc">%&gt;%</span></span>
 <span id="cb39-10"><a href="marketing-channel-analysis.html#cb39-10" tabindex="-1"></a>  <span class="fu">arrange</span>(CHANNEL, <span class="fu">desc</span>(Proportion))</span></code></pre></div>
 <pre><code>## # A tibble: 14 × 5
-##    CHANNEL           SUB_CHANNEL Product_Count Total_Subchannel_Count Proportion
-##    &lt;chr&gt;             &lt;chr&gt;               &lt;int&gt;                  &lt;int&gt;      &lt;dbl&gt;
-##  1 Brand Marketing   &lt;NA&gt;                 2373                   2373  1        
-##  2 CRM               Promo               11385                  13284  0.857    
-##  3 CRM               Trigger              1898                  13284  0.143    
-##  4 CRM               &lt;NA&gt;                    1                  13284  0.0000753
-##  5 Display           &lt;NA&gt;                 2321                   2321  1        
-##  6 Offline           &lt;NA&gt;                 2260                   2260  1        
-##  7 Partner Marketing Performanc…         11106                  12326  0.901    
-##  8 Partner Marketing Media Part…           558                  12326  0.0453   
-##  9 Partner Marketing Business D…           550                  12326  0.0446   
-## 10 Partner Marketing Native                112                  12326  0.00909  
-## 11 SEM               Non-Brand           14199                  16584  0.856    
-## 12 SEM               Brand                2385                  16584  0.144    
-## 13 SEO               &lt;NA&gt;                 6575                   6575  1        
-## 14 Social            &lt;NA&gt;                 2379                   2379  1</code></pre>
+##    CHANNEL           SUB_CHANNEL  Product_Count Total_Subchannel_Count Proportion
+##    &lt;chr&gt;             &lt;chr&gt;                &lt;int&gt;                  &lt;int&gt;      &lt;dbl&gt;
+##  1 Brand Marketing   &lt;NA&gt;                  2373                   2373  1        
+##  2 CRM               Promo                11385                  13284  0.857    
+##  3 CRM               Trigger               1898                  13284  0.143    
+##  4 CRM               &lt;NA&gt;                     1                  13284  0.0000753
+##  5 Display           &lt;NA&gt;                  2321                   2321  1        
+##  6 Offline           &lt;NA&gt;                  2260                   2260  1        
+##  7 Partner Marketing Performance…         11106                  12326  0.901    
+##  8 Partner Marketing Media Partn…           558                  12326  0.0453   
+##  9 Partner Marketing Business De…           550                  12326  0.0446   
+## 10 Partner Marketing Native                 112                  12326  0.00909  
+## 11 SEM               Non-Brand            14199                  16584  0.856    
+## 12 SEM               Brand                 2385                  16584  0.144    
+## 13 SEO               &lt;NA&gt;                  6575                   6575  1        
+## 14 Social            &lt;NA&gt;                  2379                   2379  1</code></pre>
 <p>Analyze the proportion of each marketing channel in all sessions</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="marketing-channel-analysis.html#cb41-1" tabindex="-1"></a>sessions_clean_marketing <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(sessions, marketing_details, <span class="at">by =</span> <span class="st">&quot;marketing_ID&quot;</span>)</span>
 <span id="cb41-2"><a href="marketing-channel-analysis.html#cb41-2" tabindex="-1"></a></span>

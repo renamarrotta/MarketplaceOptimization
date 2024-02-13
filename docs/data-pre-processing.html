@@ -23,7 +23,7 @@
 <meta name="author" content="Rena Marrotta" />
 
 
-<meta name="date" content="2024-02-12" />
+<meta name="date" content="2024-02-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -176,11 +176,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-pre-processing" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">2</span> Data Pre-Processing<a href="data-pre-processing.html#data-pre-processing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Libraries</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-pre-processing.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-2"><a href="data-pre-processing.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="data-pre-processing.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
-<p>Load in sheets of the excel file</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-pre-processing.html#cb2-1" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">&quot;/Users/renamarrotta/Documents/IAA/Analytics Business Case Data (1).xlsx&quot;</span></span>
 <span id="cb2-2"><a href="data-pre-processing.html#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="data-pre-processing.html#cb2-3" tabindex="-1"></a>sheets <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;sessions&quot;</span>, <span class="st">&quot;marketing_details&quot;</span>, <span class="st">&quot;leads&quot;</span>, <span class="st">&quot;product_details&quot;</span>, <span class="st">&quot;matches&quot;</span>)</span>
@@ -191,8 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-8"><a href="data-pre-processing.html#cb2-8" tabindex="-1"></a>  <span class="fu">assign</span>(sheet_name, df)</span>
 <span id="cb2-9"><a href="data-pre-processing.html#cb2-9" tabindex="-1"></a>}</span>
 <span id="cb2-10"><a href="data-pre-processing.html#cb2-10" tabindex="-1"></a><span class="fu">rm</span>(df)</span></code></pre></div>
-<p>#Marketing &amp; Conversion</p>
-<p>##Evaluating Marketing Channel Value</p>
+<p>Marketing &amp; Conversion: Evaluating Marketing Channel Value</p>
 <p>Based on my understanding, each session should be associated with clicks. To check my understanding, I will analyze how many matching sessions ids and click session ids there are. The purpose of this is so I can match each session and its associated marketing strategy with a lead to understand which marketing strategies have the most leads associated.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-pre-processing.html#cb3-1" tabindex="-1"></a>matching_rows_leads <span class="ot">&lt;-</span> leads[leads<span class="sc">$</span>CLICK_SESSION_ID <span class="sc">%in%</span> sessions<span class="sc">$</span>SESSION_ID, ] </span>
 <span id="cb3-2"><a href="data-pre-processing.html#cb3-2" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(matching_rows_leads<span class="sc">$</span>CLICK_SESSION_ID)) <span class="co">#16185 unique ids</span></span></code></pre></div>

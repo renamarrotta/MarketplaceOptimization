@@ -19,9 +19,8 @@ market_prod_matches %>%
   arrange(desc(Revenue_PerLead))
 ```
 
-#Areas for Improvement
 
-Now that I have identified which products generate the most revenue, I will explore the make up of products for all leads.
+Now that I have identified which products generate the most revenue, I will explore the make up of products for all referrals.
 
 ```{r}
 total_refs <- nrow(market_prod_matches)
